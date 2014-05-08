@@ -21,7 +21,7 @@ public class Permutation {
 	}
 	
 	public boolean existNextPermutation() {
-		return current < array.length;
+		return current < (2 ^ array.length);
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class Permutation {
 			
 			char[] tmp = Integer.toBinaryString(current).toCharArray();
 			for (int i = 0; i < tmp.length; i++) {
-				if(tmp[i]=='1') sum += array[i];
+				if(tmp[tmp.length - i - 1]=='1') sum += array[array.length - i - 1]; // elementy tablicy od końca dla zachowania porządku
 			}
 			
 			change = false;
@@ -48,16 +48,20 @@ public class Permutation {
 	 * Przełączenie na kolejną permutację.
 	 */
 	public void next() {
-		current++;
-		change = true;
+		if(existNextPermutation()) {
+			current++;
+			change = true;
+		}
 	}
 	
 	/**
 	 * Przełączenie na poprzednią permutację.
 	 */
 	public void prev() {
-		current--;
-		change = true;
+		if(current > 0) {
+			current--;
+			change = true;
+		}
 	}
 	
 	public int getCurrent() {
