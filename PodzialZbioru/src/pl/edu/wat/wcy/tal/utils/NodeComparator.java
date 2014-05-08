@@ -8,8 +8,12 @@ public class NodeComparator implements Comparator<Node>{
 
 	@Override
 	public int compare(Node o1, Node o2) {
-		if (o1.getValue() < o2.getValue()) {
-			return 1;
+		try {
+			if (o1.getValue() < o2.getValue()) {
+				return 1;
+			}
+		} catch (Exception e) {
+			System.err.println("Compare ERROR! Błąd porównywania wierzchołków.");
 		}
 		return -1;
 	}

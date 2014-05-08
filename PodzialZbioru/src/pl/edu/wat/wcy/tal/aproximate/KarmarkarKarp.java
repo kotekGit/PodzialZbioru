@@ -1,5 +1,7 @@
 package pl.edu.wat.wcy.tal.aproximate;
 
+import java.util.Date;
+
 /**
  * Klasa odpowiedzialna za implementację algorytmu KK.
  * 
@@ -9,6 +11,8 @@ package pl.edu.wat.wcy.tal.aproximate;
 public class KarmarkarKarp {
 
 	private int difference;
+	private Date startDate;
+	private Date stopDate;
 	private Graph graph;
 
 	/**
@@ -31,10 +35,12 @@ public class KarmarkarKarp {
 	public int solve(int[] arr) {
 		graph.init(arr);
 
+		startDate = new Date();
 		for (int i = 1; i < arr.length; i++) {
 			difference = graph.differencing();
 		}
 		graph.color();
+		stopDate = new Date();
 		return difference;
 	}
 
@@ -44,6 +50,7 @@ public class KarmarkarKarp {
 	 * 
 	 */
 	public void print() {
-		graph.print();
+		graph.print(startDate,stopDate,difference);
 	}
+
 }

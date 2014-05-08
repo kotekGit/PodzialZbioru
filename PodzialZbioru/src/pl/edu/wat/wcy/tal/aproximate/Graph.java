@@ -1,6 +1,12 @@
 package pl.edu.wat.wcy.tal.aproximate;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -64,7 +70,7 @@ public class Graph {
 	 * Metoda odpowiedzialna za wypisanie podzbiorów powstałych po wykonaniu
 	 * algorytmu KK.
 	 */
-	public void print() {
+	public void print(Date d1, Date d2, int difference) {
 		String a = "", b = "";
 		for (Node n : nodes) {
 			if (n.getColor() == Color.RED) {
@@ -73,9 +79,30 @@ public class Graph {
 				b = b + n.getSelfValue() + " ";
 			}
 		}
-		log.log(Level.INFO,
-				"Algorytm KK wykonał się poprawnie!\n Zbiór A = {0}\n Zbiór B = {1}",
-				new Object[] { a, b });
+		StringBuilder sb = new StringBuilder();
+		sb.append("Algorytm KK wykonał się poprawnie!\n");
+		sb.append("Data rozpoczęcia: {0}\n");
+		sb.append("Data zakończenia: {1}\n");
+		sb.append("Czas trwania: " + (d2.getTime() - d1.getTime()) + "[ms]\n");
+		if (a.length() < 1000 && b.length() < 1000) {
+			sb.append("Zbiór A = {2}\n");
+			sb.append("Zbiór B = {3}\n");
+		}
+		if (difference == 0) {
+			sb.append("Zbiór podzielono na równe części.\n");
+		} else {
+			sb.append("Różnica pomiędzy zbiorami: {4}\n");
+		}
+
+		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("aproksymacyjny.txt", true)))) {
+		    out.println("\nA = " + a + "\nB = " + b);
+		    sb.append("Wyniki zapisano do pliku aproksymacyjny.txt\n");
+		}catch (IOException e) {
+			log.log(Level.WARNING, "Nie udało się zapisać wyniku do pliku!");
+		}
+		
+		log.log(Level.INFO, sb.toString(), new Object[] { d1, d2, a, b,
+				difference });
 	}
 
 	/*
