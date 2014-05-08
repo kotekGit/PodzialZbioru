@@ -39,7 +39,7 @@ public class Generator {
 		for (int i = 0; i < size; i++) {
 			array[i] = random.nextInt(range+1);
 		}
-		log.log(Level.INFO, "Wygenerowano losową tablicę: {0}. Liczba elementów: {1}. Zakres: [0-{2}] \n",
+		log.log(Level.INFO, "Wygenerowano losową tablicę: {0}.\nLiczba elementów: {1}. Zakres: [0-{2}] \n",
 				new Object[] { Arrays.toString(array), size, range });
 		return array;
 	}

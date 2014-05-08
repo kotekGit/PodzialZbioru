@@ -1,7 +1,6 @@
 package pl.edu.wat.wcy.tal.utils;
 
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class StructureConverter {
 	
@@ -22,22 +21,4 @@ public class StructureConverter {
 		return arr;
 	}
 	
-	/**
-	 * Metoda zamienia tablicę integerów na kolejkę priorytetową.
-	 * 
-	 * @author Łukasz Kotowski
-	 * @param arr tablica do konwersji na kolejkę
-	 * @return PriorityQueue
-	 */
-	public static PriorityQueue<Integer> arrayToPriorityQueue(int[] arr) {
-		
-		PriorityQueue<Integer> queue = new PriorityQueue<Integer>(arr.length,
-				new IntegerComparator());
-		for (int val : arr) {
-			queue.add(val);
-		}
-		return queue;
-		
-	}
-
 }
