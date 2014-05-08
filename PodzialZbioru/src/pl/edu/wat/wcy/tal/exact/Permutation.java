@@ -1,7 +1,5 @@
 package pl.edu.wat.wcy.tal.exact;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Permutacje elementów podzbioru
  * 
@@ -9,41 +7,64 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  *
  */
 public class Permutation {
-	private int min;
-	private int max;
-	private int current;
+	private int current = 0;
+	private int[] array;
+	private boolean change = true;
+	private int sum;
 	
-	public Permutation(int min, int max) {
-		this.min = min;
-		this.max = max;
-		this.current = min;
-	}
-	
-	public Permutation(int min, int max, int current) {
-		this.min = min;
-		this.max = max;
-		this.current = current;
+	/**
+	 * @param array
+	 * 				zbiór liczb
+	 */
+	public Permutation(int[] array) {
+		this.array = array;
 	}
 	
-	public boolean isNextPermutation() {
-		//TODO
-		throw new NotImplementedException();
+	public boolean existNextPermutation() {
+		return current < array.length;
 	}
 	
-	public Permutation getNextPartition() {
-		//TODO
-		throw new NotImplementedException();
+	/**
+	 * Zwraca bądź generuje sumę elementów permutacji.
+	 * 
+	 * @return int
+	 */
+	public int sum() {
+		if(change) {
+			sum = 0;
+			
+			char[] tmp = Integer.toBinaryString(current).toCharArray();
+			for (int i = 0; i < tmp.length; i++) {
+				if(tmp[i]=='1') sum += array[i];
+			}
+			
+			change = false;
+		}
+		
+		return sum;
 	}
-
-	public int getMin() {
-		return min;
+	
+	/**
+	 * Przełączenie na kolejną permutację.
+	 */
+	public void next() {
+		current++;
+		change = true;
 	}
-
-	public int getMax() {
-		return max;
+	
+	/**
+	 * Przełączenie na poprzednią permutację.
+	 */
+	public void prev() {
+		current--;
+		change = true;
 	}
-
+	
 	public int getCurrent() {
 		return current;
+	}
+	
+	public int[] getArray() {
+		return array;
 	}
 }

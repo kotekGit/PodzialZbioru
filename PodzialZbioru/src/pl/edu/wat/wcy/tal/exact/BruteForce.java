@@ -2,36 +2,34 @@ package pl.edu.wat.wcy.tal.exact;
 
 import pl.edu.wat.wcy.tal.IOptPartition;
 import pl.edu.wat.wcy.tal.utils.Array;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+/**
+ * Rozwiązywanie problemu podziału zbioru algorytmem brute force.
+ * 
+ * @author Mariusz Kielan
+ */
 public class BruteForce implements IOptPartition {
 
-	/**
-	 * @author Mariusz Kielan
-	 */
 	@Override
 	public int partition(int[] array) {
 		int totalSum = Array.sum(array);
 		
-		Permutation permutation = new Permutation(1, array.length);
+		Permutation permutation = new Permutation(array);
+		int sum = permutation.sum();
 		
-		while(permutation.isNextPermutation()) {
-			Permutation tmp = permutation.getNextPartition();
+		while(permutation.existNextPermutation()) {
+			permutation.next();
 			
-			if(sumSelected(array, tmp) == totalSum / 2) return 0; 
+			if(permutation.sum() == totalSum / 2) return 0; 
 			
 			if(
-				Math.abs(totalSum - sumSelected(array, tmp)) 
+				Math.abs(totalSum - sum) 
 				< 
-				Math.abs(totalSum) - sumSelected(array, permutation)
+				Math.abs(totalSum) - permutation.sum()
 			)
-				permutation = tmp;
+				sum = permutation.sum();
 		}
 		
-		return Math.abs(totalSum - 2 * sumSelected(array, permutation));
-	}
-	
-	public static int sumSelected(int[] array, Permutation permutation) {
-		throw new NotImplementedException();
+		return Math.abs(totalSum - 2 * sum);
 	}
 }
