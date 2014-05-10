@@ -9,7 +9,8 @@ import pl.edu.wat.wcy.tal.utils.Array;
  * @author Mariusz Kielan
  */
 public class BruteForce implements IOptPartition {
-
+	//TODO poprawić algorytm (nie wychodzi dla ostatniego przypadku z unit testów)
+	//TODO uwzględnić fakt, że problem jest symetryczny (połowa sprawdzeń)
 	@Override
 	public int partition(int[] array) {
 		int totalSum = Array.sum(array);
