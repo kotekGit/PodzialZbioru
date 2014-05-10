@@ -21,7 +21,7 @@ public class Permutation {
 	}
 	
 	public boolean existNextPermutation() {
-		return current < (2 ^ array.length);
+		return array.length > 0 && current < ((int)Math.pow(2,array.length) - 1);
 	}
 	
 	/**
