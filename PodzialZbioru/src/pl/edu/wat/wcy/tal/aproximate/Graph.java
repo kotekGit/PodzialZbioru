@@ -1,18 +1,14 @@
 package pl.edu.wat.wcy.tal.aproximate;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import pl.edu.wat.wcy.tal.utils.NodeComparator;
 
 /**
  * Klasa odpowiedzialna za zarządzanie grafem dla algorytmu KK.
@@ -36,7 +32,7 @@ public class Graph {
 		for (int i = 0; i < array.length; i++) {
 			addNode(new Node(i, array[i]));
 		}
-		Collections.sort(nodes, new NodeComparator());
+		// Collections.sort(nodes, new NodeComparator());
 	}
 
 	/**
@@ -47,12 +43,13 @@ public class Graph {
 	 *         wierzchołkami.
 	 */
 	public int differencing() {
-		int a = getNode(0).getValue();
-		int b = getNode(1).getValue();
-		addEdge(getNode(0), getNode(1));
-		getNode(0).setValue(a - b);
-		getNode(1).setValue(-1);
-		Collections.sort(nodes, new NodeComparator());
+
+		int[] max = findMax();
+		int a = getNode(max[0]).getValue();
+		int b = getNode(max[1]).getValue();
+		addEdge(getNode(max[0]), getNode(max[1]));
+		getNode(max[0]).setValue(a - b);
+		getNode(max[1]).setValue(-1);
 		return a - b;
 	}
 
@@ -61,7 +58,8 @@ public class Graph {
 	 * korzenia drzewa.
 	 */
 	public void color() {
-		Node n = getNode(0);
+		int[] max = findMax();
+		Node n = getNode(max[0]);
 		changeColor(n, Color.RED);
 		colorIn(n);
 	}
@@ -71,38 +69,62 @@ public class Graph {
 	 * algorytmu KK.
 	 */
 	public void print(Date d1, Date d2, int difference) {
-		String a = "", b = "";
+		List<Integer> s1 = new LinkedList<Integer>();
+		List<Integer> s2 = new LinkedList<Integer>();
 		for (Node n : nodes) {
 			if (n.getColor() == Color.RED) {
-				a = a + n.getSelfValue() + " ";
+				s1.add(n.getSelfValue());
 			} else if (n.getColor() == Color.GREEN) {
-				b = b + n.getSelfValue() + " ";
+				s2.add(n.getSelfValue());
 			}
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append("Algorytm KK wykonał się poprawnie!\n");
-		sb.append("Data rozpoczęcia: {0}\n");
-		sb.append("Data zakończenia: {1}\n");
+		sb.append("\nAlgorytm KK wykonał się poprawnie!\n");
+		sb.append("Data rozpoczęcia: "+d1+"\n");
+		sb.append("Data zakończenia: "+d2+"\n");
 		sb.append("Czas trwania: " + (d2.getTime() - d1.getTime()) + "[ms]\n");
-		if (a.length() < 1000 && b.length() < 1000) {
-			sb.append("Zbiór A = {2}\n");
-			sb.append("Zbiór B = {3}\n");
-		}
 		if (difference == 0) {
 			sb.append("Zbiór podzielono na równe części.\n");
 		} else {
-			sb.append("Różnica pomiędzy zbiorami: {4}\n");
+			sb.append("Różnica pomiędzy zbiorami: "+difference+"\n");
 		}
 
-		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("aproksymacyjny.txt", true)))) {
-		    out.println("\nA = " + a + "\nB = " + b);
-		    sb.append("Wyniki zapisano do pliku aproksymacyjny.txt\n");
-		}catch (IOException e) {
+		try (PrintWriter out = new PrintWriter(new BufferedWriter(
+				new FileWriter("aproksymacyjny.txt", true)))) {
+			out.flush();
+			out.print(sb.toString()+"\nA = ");
+			out.flush();
+			String s = new String();
+			int i = 0;
+			for (Integer a : s1) {
+				s = s + a + " ";
+				if (i%200 == 199){
+					s = s + "\n";
+					out.print(s);
+					out.flush();
+					s="";
+				}
+				++i;
+			}
+			out.print(s+"\nB = ");
+			s = ""; i=0;
+			for (Integer b : s2) {
+				s = s + b + " ";
+				if (i%200 == 199){
+					s = s + "\n";
+					out.print(s);
+					out.flush();
+					s="";
+				}
+				++i;
+			}
+			out.print(s);
+			out.flush();
+			sb.append("Wyniki zapisano do pliku aproksymacyjny.txt\n");
+		} catch (IOException e) {
 			log.log(Level.WARNING, "Nie udało się zapisać wyniku do pliku!");
 		}
-		
-		log.log(Level.INFO, sb.toString(), new Object[] { d1, d2, a, b,
-				difference });
+		log.log(Level.INFO, sb.toString());
 	}
 
 	/*
@@ -138,7 +160,12 @@ public class Graph {
 	 * @return
 	 */
 	private Node getNode(int index) {
-		return nodes.get(index);
+		try {
+			return nodes.get(index);	
+		} catch (Exception e) {
+			log.log(Level.WARNING, "Wystąpił błąd: Wartość poza zakresem!.\n");
+		}
+		return nodes.get(0);
 	}
 
 	/**
@@ -180,6 +207,33 @@ public class Graph {
 			return Color.GREEN;
 		}
 		return Color.RED;
+	}
+
+	/**
+	 * Metoda wyszukuje dwa wierzchołki o największej wartości.
+	 * 
+	 * @return indeksy największych co do wartości wierzchołków w zbiorze.
+	 */
+	private int[] findMax() {
+		int maxOne = -999, maxTwo = -999;
+		int idx1 = -1, idx2 = -1;
+		int i = 0;
+		for (Node n : nodes) {
+			if (maxOne < n.getValue()) {
+				maxTwo = maxOne;
+				maxOne = n.getValue();
+				idx2 = idx1;
+				idx1 = i;
+			} else if (maxTwo < n.getValue()) {
+				maxTwo = n.getValue();
+				idx2 = i;
+			}
+			i++;
+		}
+		int[] max = new int[2];
+		max[0] = idx1;
+		max[1] = idx2;
+		return max;
 	}
 
 }

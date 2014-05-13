@@ -5,22 +5,16 @@ import java.util.List;
 
 public class Node {
 
-	private int id;
-	private int selfValue;
 	private int value;
+	private int selfValue;
 	private Color color;
 	private List<Node> neighbors;
 	
 	public Node(int id, int value) {
-		this.id = id;
 		this.value = value;
 		this.selfValue = value;
 		this.neighbors = new LinkedList<>();
 		this.color = Color.TRANSPARENT;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public int getValue() {

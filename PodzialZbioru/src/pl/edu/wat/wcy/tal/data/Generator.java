@@ -36,11 +36,15 @@ public class Generator {
 	 */
 	public int[] generateRandomData(int size, int range) {
 		int[] array = new int[size];
-		for (int i = 0; i < size; i++) {
-			array[i] = random.nextInt(range+1);
+		String tablica = "";
+		if (size < 1000){
+			for (int i = 0; i < size; i++) {
+				array[i] = random.nextInt(range+1);
+			}
+			tablica = Arrays.toString(array);
 		}
 		log.log(Level.INFO, "Wygenerowano losową tablicę: {0}.\nLiczba elementów: {1}. Zakres: [0-{2}] \n",
-				new Object[] { Arrays.toString(array), size, range });
+				new Object[] { tablica, size, range });
 		return array;
 	}
 	
