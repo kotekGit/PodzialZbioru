@@ -1,7 +1,6 @@
 package app.run.test;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
@@ -43,8 +42,7 @@ public class Application {
 				log.log(Level.INFO, "Wybrano "+Messages.ALG_APROKSYMACYJNY);
 				karmarkarKarp();
 			} else if (input.contains("@")){
-				log.log(Level.INFO, Messages.KONIEC);
-				return -1;
+				log.log(Level.INFO, Messages.MEMORY +"\n"+ Messages.KONIEC);
 			} else {
 				log.log(Level.WARNING, Messages.WARNING);
 			}
@@ -64,7 +62,7 @@ public class Application {
 			KK.solve(arr);
 			KK.print();	
 		}
-		
+		System.gc();
 	}
 	
 	/**

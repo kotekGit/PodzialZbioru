@@ -1,5 +1,6 @@
 package app.run.test;
 
+
 /**
  * Klasa testowa aplikacji.
  * 
@@ -20,6 +21,7 @@ public class Test {
 	 * @param args argumenty metody.
 	 */
 	public static void main(String[] args) {
+		System.gc();
 		Test t = new Test();
 		t.runTest();
 	}

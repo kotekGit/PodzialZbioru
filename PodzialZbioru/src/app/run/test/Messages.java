@@ -27,6 +27,7 @@ public class Messages {
 	
 	
 	public static String KONIEC = "Poprawnie zakończono działanie programu.";
+	public static String MEMORY = "Wyczyszczono pamięć.";
 	public static String ALG_DOKLADNY = "algorytm dokładny";
 	public static String ALG_APROKSYMACYJNY = "algorytm aproksymacyjny - KK";
 	public static String GEN_LOS = "generator losowy";

@@ -43,7 +43,6 @@ public class Graph {
 	 *         wierzchołkami.
 	 */
 	public int differencing() {
-
 		int[] max = findMax();
 		int a = getNode(max[0]).getValue();
 		int b = getNode(max[1]).getValue();
@@ -79,7 +78,7 @@ public class Graph {
 			}
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nAlgorytm KK wykonał się poprawnie!\n");
+		sb.append("\n-------Algorytm KK-------\n");
 		sb.append("Data rozpoczęcia: "+d1+"\n");
 		sb.append("Data zakończenia: "+d2+"\n");
 		sb.append("Czas trwania: " + (d2.getTime() - d1.getTime()) + "[ms]\n");
@@ -125,6 +124,8 @@ public class Graph {
 			log.log(Level.WARNING, "Nie udało się zapisać wyniku do pliku!");
 		}
 		log.log(Level.INFO, sb.toString());
+		nodes = null;
+		System.gc();
 	}
 
 	/*
