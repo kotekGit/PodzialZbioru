@@ -27,15 +27,15 @@ public class Application {
 	 */
 	private int init() {
 		log.log(Level.INFO, "Uruchomiono aplikację.");
-		new File("/PodzialZbioru/aproksymacyjny.txt"); //tworzy nowy plik na sessję;
 		String input = "";
+		//new File("/PodzialZbioru/aproksymacyjny.txt"); //tworzy nowy plik na sessję;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (!input.contains("@")) {
 			System.out.println(Messages.MENU);
 			try {
 				input = br.readLine();
 			} catch (IOException e) {
-				e.printStackTrace();
+				log.log(Level.WARNING, "Błąd odczytu strumienia wejściowego!");
 			}
 			if (input.contains("1")) {
 				log.log(Level.INFO, "Wybrano "+Messages.ALG_DOKLADNY);
