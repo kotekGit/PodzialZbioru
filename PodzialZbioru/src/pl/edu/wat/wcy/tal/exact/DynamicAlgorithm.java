@@ -1,13 +1,26 @@
 package pl.edu.wat.wcy.tal.exact;
 
+import java.util.Date;
+import java.util.logging.Logger;
+
 import pl.edu.wat.wcy.tal.utils.Array;
 
 public class DynamicAlgorithm {
+	private static Logger log = Logger.getLogger(DynamicAlgorithm.class.getName());
+	
+	private int[] lastArray;
+	private int lastSum;
+	private boolean existEqualPartitions;
+	private Permutation lastPermutation = null;
+	private Date startTime;
+	private Date finishTime;
 	
 	/**
 	 * @author Mariusz Kielan
 	 */
-	public boolean partition(int[] array) {
+	public boolean solve(int[] array) {
+		startTime = new Date();
+		
 		int n = array.length;
 		int i, j;		
 		int sum = Array.sum(array);
@@ -31,6 +44,35 @@ public class DynamicAlgorithm {
 			}
 		}
 		
+		finishTime = new Date();
+		lastSum = sum;
+		lastArray =  array;
+		existEqualPartitions = part[n - 1][L];
+		
 		return part[n - 1][L];
+	}
+
+	public void print() {
+		StringBuilder sb = new StringBuilder();
+		
+		if(lastPermutation != null) {
+			sb.append("Wykonano podzial zbioru algorytmem Brute Force");
+			
+			sb.append("Data rozpoczęcia: " + startTime + "\n");
+			sb.append("Data zakończenia: " + finishTime + "\n");
+			sb.append("Czas trwania: " + (startTime.getTime() - finishTime.getTime()) + "[ms]\n");
+			sb.append("Tablica wejsciowa: " + Array.toString(lastArray));
+			sb.append("A = " + Array.toString(lastPermutation.firstArray()));
+			sb.append("B = " + Array.toString(lastPermutation.secondArray()));
+			sb.append("Suma wszystkich elementow: " + lastSum + "\n");
+			
+			if(existEqualPartitions) sb.append("Nie udalo sie rozwiazac problemu!\n");
+			else sb.append("Wyznaczono rowne zbiory!\n");
+		}
+		else {
+			sb.append("Nie obliczano jeszcze zadnego problemu\n");;
+		}
+		
+		log.info(sb.toString());
 	}
 }

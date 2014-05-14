@@ -33,7 +33,7 @@ public class BruteForceTest {
 		for(int i = 0; i < exceptedResults.length; i++) {
 			System.out.println("Step " + (i + 1) + "/" + exceptedResults.length);
 			
-			assertEquals(exceptedResults[i], bruteForce.partition(inputs[i]));
+			assertEquals(exceptedResults[i], bruteForce.solve(inputs[i]));
 		}
 	}
 

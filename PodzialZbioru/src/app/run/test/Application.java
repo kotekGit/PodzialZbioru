@@ -1,14 +1,16 @@
 package app.run.test;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import pl.edu.wat.wcy.tal.IPartition;
 import pl.edu.wat.wcy.tal.aproximate.KarmarkarKarp;
 import pl.edu.wat.wcy.tal.data.Generator;
+import pl.edu.wat.wcy.tal.exact.BruteForce;
+import pl.edu.wat.wcy.tal.exact.DynamicAlgorithm;
 
 public class Application {
 	private static Logger log = Logger.getLogger("Application");
@@ -38,8 +40,13 @@ public class Application {
 				log.log(Level.WARNING, "Błąd odczytu strumienia wejściowego!");
 			}
 			if (input.contains("1")) {
-				log.log(Level.INFO, "Wybrano "+Messages.ALG_DOKLADNY);
-			} else if (input.contains("2")) {
+				log.log(Level.INFO, "Wybrano "+Messages.ALG_BRUTE_FORCE);
+				runAlgorithm(new BruteForce());
+			}
+			else if (input.contains("2")) {
+				log.log(Level.INFO, "Wybrano "+Messages.ALG_DYNAMICZNY);
+				dynamicAlgorithm();
+			} else if (input.contains("3")) {
 				log.log(Level.INFO, "Wybrano "+Messages.ALG_APROKSYMACYJNY);
 				karmarkarKarp();
 			} else if (input.contains("@")){
@@ -64,7 +71,30 @@ public class Application {
 			KK.solve(arr);
 			KK.print();	
 		}
+	}
+	
+	private void dynamicAlgorithm() {
+		DynamicAlgorithm d = new DynamicAlgorithm();
+		int[] arr = generator();
 		
+		if(arr != null) {
+			d.solve(arr);
+			d.print();
+		}
+	}
+	
+	/**
+	 * Uruchamia algorytmy IPartition
+	 */
+	private void runAlgorithm(IPartition partition) {
+		if(partition != null) {
+			int[] arr = generator();
+			
+			if(arr != null) {
+				partition.solve(arr);
+				partition.print();
+			}
+		}
 	}
 	
 	/**

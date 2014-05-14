@@ -41,7 +41,7 @@ public class DynamicAlgorithmTest {
 	public void test() {
 		
 		for(int i = 0; i < Math.min(results.length, cases.length); i++) {
-			assertEquals(dynamicAlgorithm.partition(cases[i]), results[i]);
+			assertEquals(dynamicAlgorithm.solve(cases[i]), results[i]);
 		}
 		
 	}

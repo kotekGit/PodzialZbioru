@@ -1,5 +1,7 @@
 package pl.edu.wat.wcy.tal.exact;
 
+import java.util.ArrayList;
+
 /**
  * Permutacje elementów podzbioru
  * 
@@ -70,5 +72,27 @@ public class Permutation {
 	
 	public int[] getArray() {
 		return array;
+	}
+	
+	public Integer[] firstArray() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		char[] tmp = Integer.toBinaryString(current).toCharArray();
+		
+		for (int i = 0; i < tmp.length; i++) {
+			if(tmp[tmp.length - i - 1]=='1') list.add(array[array.length - i - 1]); // elementy tablicy od końca dla zachowania porządku
+		}
+		
+		return list.toArray(new Integer[list.size()]);
+	}
+	
+	public Integer[] secondArray() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		char[] tmp = Integer.toBinaryString(current).toCharArray();
+		
+		for (int i = 0; i < tmp.length; i++) {
+			if(tmp[tmp.length - i - 1]=='0') list.add(array[array.length - i - 1]); // elementy tablicy od końca dla zachowania porządku
+		}
+		
+		return list.toArray(new Integer[list.size()]);
 	}
 }
