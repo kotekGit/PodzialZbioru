@@ -26,6 +26,10 @@ public class Permutation {
 		return array.length > 0 && current < ((int)Math.pow(2,array.length) - 1);
 	}
 	
+	public boolean existNextSymetricPermutation() {
+		return array.length > 0 && current < (((int)Math.pow(2,array.length)/2) - 1);
+	}
+	
 	/**
 	 * Zwraca bądź generuje sumę elementów permutacji.
 	 * 

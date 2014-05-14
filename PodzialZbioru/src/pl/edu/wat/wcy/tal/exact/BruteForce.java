@@ -32,7 +32,7 @@ public class BruteForce implements IPartition {
 		Permutation permutation = new Permutation(array);
 		int sum = totalSum;
 		
-		while(permutation.existNextPermutation()) {
+		while(permutation.existNextSymetricPermutation()) {
 			permutation.next();
 			
 			if(permutation.sum() == totalSum / 2.) return 0; 
