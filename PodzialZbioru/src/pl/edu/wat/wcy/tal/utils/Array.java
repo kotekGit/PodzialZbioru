@@ -23,4 +23,26 @@ public class Array {
 		
 		return sum;
 	}
+	
+	public static String toString(int[] array) {
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i = 0; i < array.length; i++) {
+			sb.append(array[i]);
+			if(i + 1 < array.length) sb.append(" ");
+		}
+		
+		return sb.toString();
+	}
+	
+	public static String toString(Integer[] array) {
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i = 0; i < array.length; i++) {
+			sb.append(array[i]);
+			if(i + 1 < array.length) sb.append(" ");
+		}
+		
+		return sb.toString();
+	}
 }

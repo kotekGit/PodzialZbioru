@@ -23,7 +23,8 @@ public class PermutationTest {
 				{1,2,3,4,5,6}, 
 				{1,2},
 				{7},
-				{3,2,5,6,1}
+				{3,2,5,6,1},
+				{}
 			};
 		
 		permutations.clear();
@@ -36,37 +37,48 @@ public class PermutationTest {
 	@Test
 	public void sum() {
 		int[][] notExcepted = new int[][] {
-			{21, 3, 7, 17},
-			{0, 0, 0, 0},
-			{6, 2, 0, 1},
-			{5, 1, 0, 6}
-		};
-		
+				{21, 3, 7, 17, 1},
+				{0, 0, 0, 0, 1},
+				{6, 2, 0, 1, 1},
+				{5, 1, 0, 6, 1},
+				{11, 1, 0, 7, 1},
+			};
+			
 		int[][] excepted = new int[][] {
-			{0, 0, 0, 0},
-			{6, 2, 7, 1},
-			//{5, 1, 7, 6},
-			//{11, 3, 7, 7},
-		};
+				{0, 0, 0, 0, 0},
+				{6, 2, 7, 1, 0},
+				{5, 1, 7, 6, 0},
+				{11, 3, 7, 7, 0},
+				{4, 3, 7, 5, 0},
+			};
 		
 		boolean[][] existNext = new boolean[][] {
-			{true, true, true, true},
-			{true, true, false, true},
-			{true, false, false, true},
-			{true, false, false, true},
-		};
+				{true, true, true, true, false},
+				{true, true, false, true, false},
+				{true, true, false, true, false},
+				{true, false, false, true, false},
+				{true, false, false, true, false},
+			};
 		
 		for (int j = 0; j < Math.min(notExcepted.length, excepted.length); j ++)
 		for (int i = 0; i < permutations.size(); i++) {
-			String a = Integer.toBinaryString(permutations.get(i).getCurrent());
-			assertNotEquals(notExcepted[j][i], permutations.get(i).sum());
-
-			assertEquals(excepted[j][i], permutations.get(i).sum());
 			
+			System.out.println("j=" + j + ";i =" + i);
+			System.out.println("binary code: " + Integer.toBinaryString(permutations.get(i).getCurrent()));
+			System.out.println("array length: " + permutations.get(i).getArray().length);
+			System.out.println("Current: " + permutations.get(i).getCurrent());
+			System.out.println("power: " + (int)Math.pow(2,permutations.get(i).getArray().length));
+			System.out.println("Not Excepted: " + notExcepted[j][i] + "," + permutations.get(i).sum());
+			System.out.println("Excepted: " + excepted[j][i] + "," + permutations.get(i).sum());
+			System.out.println("existNext: " + existNext[j][i] + ",perm: " + permutations.get(i).existNextPermutation());
+			System.out.println("---");
+			
+			assertNotEquals(notExcepted[j][i], permutations.get(i).sum());
+			assertEquals(excepted[j][i], permutations.get(i).sum());
 			assertEquals(existNext[j][i], permutations.get(i).existNextPermutation());
 			
 			permutations.get(i).next();
+			
 		}
 	}
-
 }

@@ -1,5 +1,7 @@
 package pl.edu.wat.wcy.tal.exact;
 
+import java.util.ArrayList;
+
 /**
  * Permutacje elementów podzbioru
  * 
@@ -10,6 +12,7 @@ public class Permutation {
 	private int current = 0;
 	private int[] array;
 	private boolean change = true;
+	private char[] currentBinnaryString;
 	private int sum;
 	
 	/**
@@ -18,10 +21,15 @@ public class Permutation {
 	 */
 	public Permutation(int[] array) {
 		this.array = array;
+		this.currentBinnaryString = "0".toCharArray();
 	}
 	
 	public boolean existNextPermutation() {
-		return current < (2 ^ array.length);
+		return array.length > 0 && current < ((int)Math.pow(2,array.length) - 1);
+	}
+	
+	public boolean existNextSymetricPermutation() {
+		return array.length > 0 && current < (((int)Math.pow(2,array.length)/2) - 1);
 	}
 	
 	/**
@@ -33,9 +41,11 @@ public class Permutation {
 		if(change) {
 			sum = 0;
 			
-			char[] tmp = Integer.toBinaryString(current).toCharArray();
-			for (int i = 0; i < tmp.length; i++) {
-				if(tmp[tmp.length - i - 1]=='1') sum += array[array.length - i - 1]; // elementy tablicy od końca dla zachowania porządku
+			currentBinnaryString = Integer.toBinaryString(current).toCharArray();
+			for (int i = 0; i < currentBinnaryString.length; i++) {
+				if(currentBinnaryString[currentBinnaryString.length - i - 1]=='1') {
+					sum += array[array.length - i - 1]; // elementy tablicy od końca dla zachowania porządku
+				}
 			}
 			
 			change = false;
@@ -70,5 +80,27 @@ public class Permutation {
 	
 	public int[] getArray() {
 		return array;
+	}
+	
+	public Integer[] firstArray() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+
+		for (int i = 0; i < currentBinnaryString.length; i++) {
+			if(currentBinnaryString[currentBinnaryString.length - i - 1]=='1') 
+				list.add(array[array.length - i - 1]); // elementy tablicy od końca dla zachowania porządku
+		}
+		
+		return list.toArray(new Integer[list.size()]);
+	}
+	
+	public Integer[] secondArray() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		
+		for (int i = 0; i < currentBinnaryString.length; i++) {
+			if(currentBinnaryString[currentBinnaryString.length - i - 1]=='0') 
+				list.add(array[array.length - i - 1]); // elementy tablicy od końca dla zachowania porządku
+		}
+		
+		return list.toArray(new Integer[list.size()]);
 	}
 }
