@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import pl.edu.wat.wcy.tal.IPartition;
-import pl.edu.wat.wcy.tal.aproximate.Graph;
 import pl.edu.wat.wcy.tal.utils.Array;
 
 /**
