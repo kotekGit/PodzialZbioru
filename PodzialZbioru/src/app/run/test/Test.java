@@ -21,7 +21,6 @@ public class Test {
 	 * @param args argumenty metody.
 	 */
 	public static void main(String[] args) {
-		System.gc();
 		Test t = new Test();
 		t.runTest();
 	}

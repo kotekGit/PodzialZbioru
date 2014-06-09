@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>PodzialZbioru</groupId>
+	<groupId>pl.edu.wat.wcy.tal</groupId>
 	<artifactId>PodzialZbioru</artifactId>
-	<version>0.0.1</version>
+	<version>1.0</version>
+	<name>tal</name>
 
 	<dependencies>
 		<dependency>
@@ -12,6 +13,11 @@
 			<version>4.11</version>
 		</dependency>
 	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -30,6 +36,21 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<archive>
+						<manifest>
+							<mainClass>app.run.test.Test</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Build-Time>${maven.build.timestamp}</Build-Time>
+							<Build-Host>${agent.name}</Build-Host>
+							<Build-User>${user.name}</Build-User>
+							<Build-Maven>Maven ${maven.version}</Build-Maven>
+							<Build-Java>${java.version}</Build-Java>
+							<Build-OS>${os.name}</Build-OS>
+							<Build-Label>${project.version}</Build-Label>
+							<Build-Path>${basedir}</Build-Path>
+						</manifestEntries>
+					</archive>
 				</configuration>
 			</plugin>
 		</plugins>

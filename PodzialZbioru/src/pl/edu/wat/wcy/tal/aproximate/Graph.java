@@ -70,9 +70,10 @@ public class Graph {
 	public void print(Date d1, Date d2, int difference) {
 		List<Integer> s1 = new LinkedList<Integer>();
 		List<Integer> s2 = new LinkedList<Integer>();
-		for (Node n : nodes) {
+		for (Node n : getNodes()) {
 			if (n.getColor() == Color.RED) {
 				s1.add(n.getSelfValue());
+				System.out.println(n.getSelfValue());
 			} else if (n.getColor() == Color.GREEN) {
 				s2.add(n.getSelfValue());
 			}
@@ -81,6 +82,7 @@ public class Graph {
 		sb.append("\n-------Algorytm KK-------\n");
 		sb.append("Data rozpoczęcia: "+d1+"\n");
 		sb.append("Data zakończenia: "+d2+"\n");
+		sb.append("Rozmiar: "+(nodes.size()*8*8*8)+"[bit]\n");
 		sb.append("Czas trwania: " + (d2.getTime() - d1.getTime()) + "[ms]\n");
 		if (difference == 0) {
 			sb.append("Zbiór podzielono na równe części.\n");
@@ -92,27 +94,29 @@ public class Graph {
 				new FileWriter("aproksymacyjny.txt", true)))) {
 			out.flush();
 			out.print(sb.toString()+"\nA = ");
-			out.flush();
+			//out.flush();
 			String s = new String();
 			int i = 0;
 			for (Integer a : s1) {
 				s = s + a + " ";
+				System.out.println(s);
 				if (i%200 == 199){
 					s = s + "\n";
 					out.print(s);
-					out.flush();
+					//out.flush();
 					s="";
 				}
 				++i;
 			}
 			out.print(s+"\nB = ");
+			//out.flush();
 			s = ""; i=0;
 			for (Integer b : s2) {
 				s = s + b + " ";
-				if (i%200 == 199){
+				if (i%100 == 99){
 					s = s + "\n";
 					out.print(s);
-					out.flush();
+				//	out.flush();
 					s="";
 				}
 				++i;
@@ -124,8 +128,8 @@ public class Graph {
 			log.log(Level.WARNING, "Nie udało się zapisać wyniku do pliku!");
 		}
 		log.log(Level.INFO, sb.toString());
-		nodes = null;
-		System.gc();
+//		nodes = null;
+//		System.gc();
 	}
 
 	/*
@@ -139,6 +143,10 @@ public class Graph {
 	 */
 	private void addNode(Node node) {
 		nodes.add(node);
+	}
+	
+	private List<Node> getNodes() {
+		return nodes;
 	}
 
 	/**

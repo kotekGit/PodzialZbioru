@@ -70,6 +70,7 @@ public class Application {
 			KK.solve(arr);
 			KK.print();	
 		}
+		KK = null;
 	}
 	
 	private void dynamicAlgorithm() {
