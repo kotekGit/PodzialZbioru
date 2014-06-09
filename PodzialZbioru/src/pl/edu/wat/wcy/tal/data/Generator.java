@@ -1,29 +1,27 @@
 package pl.edu.wat.wcy.tal.data;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import pl.edu.wat.wcy.tal.utils.StructureConverter;
+import pl.edu.wat.wcy.tal.utils.Distribution;
 
 public class Generator {
 
-	private static final Logger log = Logger.getLogger(Generator.class.getName());
+/*	private static final Logger log = Logger.getLogger(Generator.class.getName());
 	private Random random;
 
 	public Generator() {
 		random = new Random();
 	}
-
-	/**
+	*/
+	
+	public static int[] generate(int zakres, double[] t) {
+	    int[] array = new int[zakres];
+	    for (int i=0; i<zakres; i++) {
+		array[i] = Distribution.getRandom((int) t[0], t[1], t[2], zakres);
+	    }
+	    return array;
+	}
+	
+/*
+	*//**
 	 * Metoda generuje tablicę losowych elementów. Rozmiar tablicy określony
 	 * jest parametrem n.
 	 * 
@@ -33,7 +31,7 @@ public class Generator {
 	 * @param range
 	 *            zakres z jakiego mają być generowane liczby
 	 * @return Wygenerowana losowo tablica elementów.
-	 */
+	 *//*
 	public int[] generateRandomData(int size, int range) {
 		int[] array = new int[size];
 		String tablica = "";
@@ -48,13 +46,13 @@ public class Generator {
 		return array;
 	}
 	
-	/**
+	*//**
 	 * Metoda pobiera dane z pliku. Każda liczba powinna być umieszczona w nowej linni.
 	 * 
 	 * @author Łukasz Kotowski
 	 * @param path Ścieżka do pliku.
 	 * @return tablica ze zbiorem liczb
-	 */
+	 *//*
 	public int[] getDataFromFile(String path) {
 		List<Integer> list = new ArrayList<Integer>();
 		File file = new File(path);
@@ -87,6 +85,6 @@ public class Generator {
 		int [] arr = StructureConverter.listToArray(list);
 		log.log(Level.INFO, "Pobrano dane {0} z pliku: {1}", new Object[]{Arrays.toString(arr), path});
 		return arr;
-	}
+	}*/
 	
 }

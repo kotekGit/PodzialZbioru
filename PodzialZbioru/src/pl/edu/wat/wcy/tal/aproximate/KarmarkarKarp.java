@@ -11,8 +11,10 @@ import java.util.Date;
 public class KarmarkarKarp {
 
 	private int difference;
-	private Date startDate;
-	private Date stopDate;
+	/*private Date startDate;
+	private Date stopDate;*/
+	private long startDate;
+	private long stopDate;
 	private Graph graph;
 
 	/**
@@ -35,12 +37,12 @@ public class KarmarkarKarp {
 	public int solve(int[] arr) {
 		graph.init(arr);
 
-		startDate = new Date();
+		startDate = System.nanoTime();
 		for (int i = 1; i < arr.length; i++) {
 			difference = graph.differencing();
 		}
 		graph.color();
-		stopDate = new Date();
+		stopDate = System.nanoTime();
 		return difference;
 	}
 
@@ -50,7 +52,13 @@ public class KarmarkarKarp {
 	 * 
 	 */
 	public void print() {
-		graph.print(startDate,stopDate,difference);
+		//graph.print(startDate,stopDate,difference);
 	}
+	
+	
+	public void saveTime() {
+		graph.saveTime(startDate,stopDate);
+	}
+
 
 }
