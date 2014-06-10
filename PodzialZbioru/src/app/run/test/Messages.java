@@ -42,9 +42,9 @@ public class Messages {
 
     public static String KONIEC = "Poprawnie zakonczono dzialanie programu.";
     public static String ALG_DOKLADNY = "algorytm dokladny";
-    public static String ALG_APROKSYMACYJNY = "algorytm aproksymacyjny - KK";
-    public static String ALG_BRUTE_FORCE = "algorytm brute force";
-    public static String ALG_DYNAMICZNY = "algorytm dynamiczny";
+    public static String ALG_KK = "Algorytm KK ";
+    public static String ALG_BRUTE_FORCE = "Algorytm Brute Force ";
+    public static String ALG_DYNAMICZNY = "Algorytm dynamiczny ";
     public static String GEN_LOS = "generator losowy";
     public static String GEN_Z_PLIKU = "dane z pliku";
     public static String WARNING = "Nieprawidlowa wartosc!";
@@ -53,5 +53,10 @@ public class Messages {
     public static String BLAD_ODCZYTU = "Blad odczytu strumienia wejsciowego!";
     public static String PARAMETR_A = "Podaj parametr a: ";
     public static String PARAMETR_B = "Podaj parametr b: ";
+    public static String WYNIK = "Wynik wykonania: ";
+    public static String NANO = " [ns]";
+    public static String MIKRO = " [us]";
+    public static String MILI = " [ms]";
+    public static String DIFF = "Różnica pomiedzy KK i BF: ";
 
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import pl.edu.wat.wcy.tal.Counter;
 import pl.edu.wat.wcy.tal.data.Generator;
 import app.run.test.Application;
 import app.run.test.Messages;
@@ -95,6 +96,11 @@ public class Console {
 	    Application.run(Generator.generate(i, parametry));
 	    i++;
 	}
-	
+	print(Messages.WYNIK);
+	print(Messages.ALG_KK + Counter.getInstance().getKK() + Messages.MIKRO);
+	print(Messages.ALG_BRUTE_FORCE + Counter.getInstance().getBF() + Messages.MILI);
+	print(Messages.ALG_DYNAMICZNY + Counter.getInstance().getDC() + Messages.MIKRO);
+	long diff = Counter.getInstance().getBF() - Counter.getInstance().getKK();
+	print(Messages.DIFF + diff);
     }
 }

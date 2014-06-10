@@ -9,6 +9,8 @@ import pl.edu.wat.wcy.tal.utils.Console;
 public class Application {
 
     //private String PATH = "C:\\Users\\Łukasz\\Desktop\\data.txt";
+    
+    
 
     /**
      * Kostruktor aplikacji.
@@ -28,8 +30,8 @@ public class Application {
 
     public static void run(int [] arr) {
 	karmarkarKarp(arr);
-	//dynamicAlgorithm(arr);
-	//runAlgorithm(new BruteForce(), arr);
+	dynamicAlgorithm(arr);
+	runAlgorithm(new BruteForce(), arr);
     }
     
     
@@ -49,7 +51,8 @@ public class Application {
 	DynamicAlgorithm d = new DynamicAlgorithm();
 	if (arr != null) {
 	    d.solve(arr);
-	    d.print();
+	    //d.print();
+	    d.saveTime();
 	}
     }
 
@@ -60,7 +63,8 @@ public class Application {
 	if (partition != null) {
 	    if (arr != null) {
 		partition.solve(arr);
-		partition.print();
+		//partition.print();
+		partition.saveTime();
 	    }
 	}
     }

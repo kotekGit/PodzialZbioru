@@ -19,4 +19,6 @@ public interface IPartition {
 	 * Do drukowania wyników
 	 */
 	void print();
+	
+	void saveTime();
 }

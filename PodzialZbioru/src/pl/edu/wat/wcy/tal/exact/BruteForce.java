@@ -3,8 +3,10 @@ package pl.edu.wat.wcy.tal.exact;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import pl.edu.wat.wcy.tal.Counter;
 import pl.edu.wat.wcy.tal.IPartition;
 import pl.edu.wat.wcy.tal.utils.Array;
+import pl.edu.wat.wcy.tal.utils.FileUtil;
 
 /**
  * Rozwiązywanie problemu podziału zbioru algorytmem brute force.
@@ -21,11 +23,14 @@ public class BruteForce implements IPartition {
 	private Permutation lastPermutation = null;
 	private Date startTime;
 	private Date finishTime;
+	private long start;
+	private long stop;
 	
 	@Override
 	public int solve(int[] array) {
 		startTime = new Date();
-		
+		start = System.nanoTime();
+		start = start / 1000000;
 		int totalSum = Array.sum(array);
 		
 		Permutation permutation = new Permutation(array);
@@ -43,7 +48,8 @@ public class BruteForce implements IPartition {
 			)
 				sum = permutation.sum();
 		}
-		
+		stop = System.nanoTime();
+		stop = stop / 1000000;
 		finishTime = new Date();
 		lastSum = sum;
 		lastArray =  array;
@@ -77,4 +83,11 @@ public class BruteForce implements IPartition {
 		
 		log.info(sb.toString());
 	}
+	
+	    public void saveTime() {
+		long time = stop - start;
+		time = time / 1000;
+		Counter.getInstance().addBF(time);
+		FileUtil.saveTime(time, "BF");
+	    }
 }

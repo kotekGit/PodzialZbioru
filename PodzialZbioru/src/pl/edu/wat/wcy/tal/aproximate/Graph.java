@@ -131,13 +131,12 @@ public class Graph {
 	// log.log(Level.INFO, sb.toString());
     }
 
-    public void saveTime(Long startDate, Long stopDate) {
+    public void saveTime(Long time) {
 	try (PrintWriter out = new PrintWriter(new BufferedWriter(
-		new FileWriter("kk.txt", true)))) {
+		new FileWriter("kk.csv", true)))) {
 	    out.flush();
-	    long time = stopDate - startDate;
-	    String pString = ""+time;
-	    out.print(pString + ";");
+	    String t = ""+time;
+	    out.print(t + ";");
 
 	} catch (IOException e) {
 	    Console.print("Nie udało się zapisać wyniku do pliku!");
