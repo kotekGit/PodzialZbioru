@@ -51,5 +51,11 @@ public final class Counter {
 	return instance;
     }
     
+    public static void setDefault() {
+	Counter.getInstance().setBF(0L);
+	Counter.getInstance().setDC(0L);
+	Counter.getInstance().setKK(0L);
+    }
+    
 
 }

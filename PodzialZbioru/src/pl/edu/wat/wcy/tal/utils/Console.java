@@ -40,21 +40,6 @@ public class Console {
 	Console.clear(10);
     }
 
-    public static void menu() {
-	String input = "";
-	while (!input.contains("2")) {
-	    Console.print(Messages.MENU);
-	    input = Console.getInput();
-	    if (input.contains("1")) {
-		run();
-	    } else if (input.contains("2")){
-		print(Messages.KONIEC);
-	    } else {
-		print(Messages.WARNING);
-	    }
-	}
-    }
-
     private static int generatorZakres() {
 	Console.print(Messages.GENERATOR_ZAKRES);
 	int zakres = 0;
@@ -72,6 +57,7 @@ public class Console {
 	double[] parametry = new double[3];
 	try {
 	    rozklad = Integer.parseInt(Console.getInput());
+	    FileUtilHelper.getInstane().setRozklad(rozklad);
 	    parametry[0] = rozklad;
 	    if (rozklad != 4) {
 		Console.print(Messages.PARAMETR_A);
@@ -88,19 +74,98 @@ public class Console {
 	}
 	return parametry;
     }
-    
-    public static void run() {
+
+    public static void run(int mode, boolean isSeries) {
 	int zakres = generatorZakres();
 	double[] parametry = generatorRozklad();
-	for (int i=4; i<zakres; i++) {
-	    Application.run(Generator.generate(i, parametry));
-	    i++;
+	int start = encodeMode(mode, isSeries, zakres);
+	for (int i = start; i <= zakres; i++) {
+	    Application.run(Generator.generate(i, parametry), mode);
+	    pierwszy(true);
 	}
+	printScores(mode);
+    }
+
+    public static int encodeMode(int mode, boolean isSeries, int range) {
+	if (mode == 1 || (isSeries && mode > 1 && mode <= 4)) {
+	    return 2; // seria dla wszystkich, lub seria dla wybranego algorytmu
+	} else if (!isSeries && mode > 1 && mode <= 4) {
+	    return range; // wybrany algorytm bez serii
+	}
+	return -1;
+    }
+
+    public static int menu() {
+	String input = "";
+	while (!input.contains("4")) {
+	    print(Messages.MODE);
+	    input = Console.getInput();
+	    if (input.contains("1")) {
+		seria(true, true);
+		run(1, true);
+	    } else if (input.contains("2a")) {
+		seria(true, false);
+		run(2, true);
+	    } else if (input.contains("2b")) {
+		seria(true, false);
+		run(3, true);
+	    } else if (input.contains("2c")) {
+		seria(true, false);
+		run(4, true);
+	    } else if (input.contains("3a")) {
+		seria(false, false);
+		run(2, false);
+	    } else if (input.contains("3b")) {
+		seria(false, false);
+		run(3, false);
+	    } else if (input.contains("3c")) {
+		seria(false, false);
+		run(4, false);
+	    } else if (input.contains("4")) {
+		print(Messages.KONIEC);
+		return 0;
+	    } else {
+		print(Messages.WARNING);
+	    }
+	}
+	return 0;
+    }
+    
+    private static void seria(boolean s, boolean sAll) {
+	FileUtilHelper.getInstane().setSeria(s);
+	FileUtilHelper.getInstane().setSeriaAll(sAll);
+    }
+    
+    private static void pierwszy (boolean p) {
+	FileUtilHelper.getInstane().setPierwszy(p);
+    }
+
+    public static void printScores(int mode) {
 	print(Messages.WYNIK);
-	print(Messages.ALG_KK + Counter.getInstance().getKK() + Messages.MIKRO);
-	print(Messages.ALG_BRUTE_FORCE + Counter.getInstance().getBF() + Messages.MILI);
-	print(Messages.ALG_DYNAMICZNY + Counter.getInstance().getDC() + Messages.MIKRO);
-	long diff = Counter.getInstance().getBF() - Counter.getInstance().getKK();
-	print(Messages.DIFF + diff);
+	if (mode == 1) {
+	    print(Messages.ALG_BRUTE_FORCE + Counter.getInstance().getBF()
+		    + Messages.MIKRO);
+	    print(Messages.ALG_DYNAMICZNY + Counter.getInstance().getDC()
+		    + Messages.MIKRO);
+	    print(Messages.ALG_KK + Counter.getInstance().getKK()
+		    + Messages.MIKRO);
+	    long diff = Counter.getInstance().getBF()
+		    - Counter.getInstance().getKK();
+	    long procent = diff / Counter.getInstance().getKK();
+	    procent = procent * 100;
+	    print(Messages.DIFF + diff);
+	    print(Messages.PROCENTOWO + procent + Messages.PROPORCJA);
+	} else if (mode == 2) {
+	    print(Messages.ALG_BRUTE_FORCE + Counter.getInstance().getBF()
+		    + Messages.MIKRO);
+	} else if (mode == 3) {
+	    print(Messages.ALG_DYNAMICZNY + Counter.getInstance().getDC()
+		    + Messages.MIKRO);
+	} else if (mode == 4) {
+	    print(Messages.ALG_KK + Counter.getInstance().getKK()
+		    + Messages.MIKRO);
+	}
+
+	Counter.setDefault();
     }
 }

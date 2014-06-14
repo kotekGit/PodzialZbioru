@@ -30,7 +30,6 @@ public class BruteForce implements IPartition {
 	public int solve(int[] array) {
 		startTime = new Date();
 		start = System.nanoTime();
-		start = start / 1000000;
 		int totalSum = Array.sum(array);
 		
 		Permutation permutation = new Permutation(array);
@@ -39,7 +38,10 @@ public class BruteForce implements IPartition {
 		while(permutation.existNextSymetricPermutation()) {
 			permutation.next();
 			
-			if(permutation.sum() == totalSum / 2.) return 0; 
+			if(permutation.sum() == totalSum / 2.) {
+			    sum = permutation.sum();
+			    break;
+			}
 			
 			if(
 				Math.abs(totalSum/2. - sum)
@@ -49,7 +51,6 @@ public class BruteForce implements IPartition {
 				sum = permutation.sum();
 		}
 		stop = System.nanoTime();
-		stop = stop / 1000000;
 		finishTime = new Date();
 		lastSum = sum;
 		lastArray =  array;
