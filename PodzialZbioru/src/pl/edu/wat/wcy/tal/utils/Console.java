@@ -3,6 +3,7 @@ package pl.edu.wat.wcy.tal.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 
 import pl.edu.wat.wcy.tal.Counter;
 import pl.edu.wat.wcy.tal.data.Generator;
@@ -91,13 +92,15 @@ public class Console {
 	    return 2; // seria dla wszystkich, lub seria dla wybranego algorytmu
 	} else if (!isSeries && mode > 1 && mode <= 4) {
 	    return range; // wybrany algorytm bez serii
+	} else if (mode == 5) {
+	    return 5;
 	}
 	return -1;
     }
 
     public static int menu() {
 	String input = "";
-	while (!input.contains("4")) {
+	while (!input.contains("5")) {
 	    print(Messages.MODE);
 	    input = Console.getInput();
 	    if (input.contains("1")) {
@@ -122,6 +125,9 @@ public class Console {
 		seria(false, false);
 		run(4, false);
 	    } else if (input.contains("4")) {
+		seria(false, false);
+		run(5, false);
+	    } else if (input.contains("5")) {
 		print(Messages.KONIEC);
 		return 0;
 	    } else {
@@ -143,18 +149,9 @@ public class Console {
     public static void printScores(int mode) {
 	print(Messages.WYNIK);
 	if (mode == 1) {
-	    print(Messages.ALG_BRUTE_FORCE + Counter.getInstance().getBF()
-		    + Messages.MIKRO);
 	    print(Messages.ALG_DYNAMICZNY + Counter.getInstance().getDC()
 		    + Messages.MIKRO);
-	    print(Messages.ALG_KK + Counter.getInstance().getKK()
-		    + Messages.MIKRO);
-	    long diff = Counter.getInstance().getBF()
-		    - Counter.getInstance().getKK();
-	    long procent = diff / Counter.getInstance().getKK();
-	    procent = procent * 100;
-	    print(Messages.DIFF + diff);
-	    print(Messages.PROCENTOWO + procent + Messages.PROPORCJA);
+	    printDifference();
 	} else if (mode == 2) {
 	    print(Messages.ALG_BRUTE_FORCE + Counter.getInstance().getBF()
 		    + Messages.MIKRO);
@@ -164,8 +161,25 @@ public class Console {
 	} else if (mode == 4) {
 	    print(Messages.ALG_KK + Counter.getInstance().getKK()
 		    + Messages.MIKRO);
+	} else if (mode == 5) {
+	    printDifference();
 	}
 
 	Counter.setDefault();
+    }
+
+    private static void printDifference() {
+	    print(Messages.ALG_BRUTE_FORCE + Counter.getInstance().getBF()
+		    + Messages.MIKRO);
+	    print(Messages.ALG_KK + Counter.getInstance().getKK()
+		    + Messages.MIKRO);
+	    long diff = Counter.getInstance().getBF()
+		    - Counter.getInstance().getKK();
+	    double procent = (double) (Counter.getInstance().getKK() / (double) Counter.getInstance().getBF());
+	    procent = procent * 100;
+	    DecimalFormat df =  new DecimalFormat("#.##");
+	    print(Messages.DIFF + diff + Messages.MIKRO);
+	    print(Messages.PROCENTOWO + "Czas wykonania KK stanowi " + df.format(procent) 
+		    + "% czasu wykonania BF");
     }
 }

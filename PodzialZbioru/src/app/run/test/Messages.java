@@ -55,7 +55,8 @@ public class Messages {
 	    + "   a. " + ALG_BRUTE_FORCE + "\n"
 	    + "   b. " + ALG_DYNAMICZNY + "\n"
 	    + "   c. " + ALG_KK + "\n"
-	    + " 4. Koniec\n";
+	    + " 4. Porównanie KK z BF\n"
+	    + " 5. Koniec\n";
 
     public static String GENERATOR_ROZKLAD = "" + "--------------------------------\n"
 	    + "WYBIERZ ROZKLAD:\n"

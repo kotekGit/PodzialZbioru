@@ -25,18 +25,18 @@ public class FileUtil {
 		if (FileUtilHelper.getInstane().isPierwszy()) {
 		    String t = "";
 		    if (FileUtilHelper.getInstane().isSeriaAll()) {
-			t = "\nSeria {(BF, DC, KK), ("+rozklad+")}: " + time;
+			t = "\nSeria {(BF, DC, KK), ("+rozklad+")} " + time;
 		    } else {
-			t = "\nSeria {(" + description + "), (" +rozklad+")}: " + time;
+			t = "\nSeria {(" + description + "), (" +rozklad+")} " + time;
 		    }
-		    out.print(t + ";");
+		    out.print(t + " ");
 		    FileUtilHelper.getInstane().setPierwszy(false);
 		} else {
-		    out.print(" "+time+";");
+		    out.print(" "+time+" ");
 		}
 	    } else {
-		String t = "\n{(" + description + "),("+rozklad+")}: " + time;
-		out.println(t + ";");
+		String t = "\n{(" + description + "),("+rozklad+")} " + time;
+		out.println(t + " ");
 		FileUtilHelper.getInstane().setPierwszy(true);
 	    }
 

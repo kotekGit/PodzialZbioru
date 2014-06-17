@@ -31,11 +31,17 @@ public class Application {
     	case 2: runAlgorithm(new BruteForce(), arr);break;
     	case 3: dynamicAlgorithm(arr);break;
     	case 4: karmarkarKarp(arr);break;
+    	case 5: bfPlusKK(arr); break;
     	default: break;
 	}
 
     }
     
+    private static void bfPlusKK(int[] arr) {
+	runAlgorithm(new BruteForce(), arr);
+	karmarkarKarp(arr);
+    }
+
     private static void all(int [] arr) {
 	runAlgorithm(new BruteForce(), arr);
 	dynamicAlgorithm(arr);
