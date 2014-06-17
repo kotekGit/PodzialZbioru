@@ -1,8 +1,9 @@
-Set partition problem (Problem podziału zbioru)
+Set partition problem 
+(Problem podziału zbioru)
 =============
 
 Used algotithms:
-  Brute Force
-  Dynamic Programing
-  Karmarkar Karp
+  1. Brute Force
+  2. Dynamic Programing
+  3. Karmarkar Karp
   
