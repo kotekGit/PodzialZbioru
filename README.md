@@ -1,5 +1,4 @@
-Set partition problem 
-(Problem podziału zbioru)
+Set partition problem (Problem podziału zbioru)
 =============
 
 Used algotithms:
